@@ -17,6 +17,14 @@
             "homepage": "https://github.com/axeldotdev"
         }
     ],
+    "readme": "https://github.com/axeldotdev/content-blocks/blob/main/README.md",
+    "support": {
+        "email": "axelcharpentier0@icloud.com",
+        "source": "https://github.com/axeldotdev/content-blocks",
+        "issues": "https://github.com/axeldotdev/content-blocks/issues",
+        "docs": "https://github.com/axeldotdev/content-blocks/wiki",
+        "chat": "https://github.com/axeldotdev/content-blocks/discussions"
+    },
     "require": {
         "php": ">=8.1",
         "illuminate/contracts": "^9.0"
