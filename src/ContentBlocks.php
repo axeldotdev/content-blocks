@@ -2,6 +2,7 @@
 
 namespace Axeldotdev\ContentBlocks;
 
+use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -10,14 +11,36 @@ class ContentBlocks extends Field
     /** @var string */
     public $component = 'content-blocks';
 
+    public Collection $blocks;
+
+    /**
+     * Create a new field.
+     *
+     * @param string $name
+     * @param string|callable|null $attribute
+     * @param callable|null $resolveCallback
+     *
+     * @return void
+     */
+    public function __construct($name, $attribute = null, callable $resolveCallback = null)
+    {
+        parent::__construct($name, $attribute, $resolveCallback);
+
+        $this->blocks = new Collection();
+    }
+
     public function addButtonLabel(string $addButtonLabel): self
     {
         return $this->withMeta(compact('addButtonLabel'));
     }
 
-    public function blocks(array $blocks): self
+    public function addBlock(string $block_class): self
     {
-        return $this->withMeta(compact('blocks'));
+        $this->blocks->push(new $block_class($this->resource));
+
+        return $this->withMeta([
+            'blocks' => $this->blocks->toArray(),
+        ]);
     }
 
     /**

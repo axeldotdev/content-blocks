@@ -23,21 +23,42 @@ The minimum PHP version required is **8.1**.
 You can use it like that:
 
 ```php
-ContentBlocks::make('Content')
+\Axeldotdev\ContentBlocks\ContentBlocks::make('Content')
     ->addButtonLabel('Add block')
-    ->blocks([
-        Block::make('Text')
-            ->fields([])
-            ->template(resource_path('views/blocks/text.blade.php')),
+    ->addBlock(\App\Nova\Blocks\TextBlock::class)
+    ->addBlock(\App\Nova\Blocks\ImageBlock::class)
+    ->addBlock(\App\Nova\Blocks\VideoBlock::class),
+```
 
-        Block::make('Image')
-            ->fields([])
-            ->template(resource_path('views/blocks/image.blade.php')),
+```php
+// app/Nova/Blocks/TextBlock.php
 
-        Block::make('Video')
-            ->fields([])
-            ->template(resource_path('views/blocks/video.blade.php')),
-    ]),
+namespace App\Nova\Blocks;
+
+use Axeldotdev\ContentBlocks\Block;
+
+ class TextBlock extends Block
+ {
+     public function fields(): array
+     {
+         return [];
+     }
+
+     public function label(): string
+     {
+         return __('Text');
+     }
+
+     public function template(): string
+     {
+         return 'blocks.text';
+     }
+
+     public function viewData(): array
+     {
+         return [];
+     }
+ }
 ```
 
 ## Testing

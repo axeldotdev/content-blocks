@@ -2,37 +2,33 @@
 
 namespace Axeldotdev\ContentBlocks;
 
+use Illuminate\Contracts\View\View;
+use Laravel\Nova\Resource;
 use Illuminate\Support\Str;
 
-class Block
+abstract class Block
 {
-    public string $id;
-    public string $label;
-    public string $template;
-    public mixed $value;
-
-    public function __construct(string $label, ?string $id = null)
-    {
-        $this->label = $label;
-        $this->id = $id ?? Str::of($label)->slug();
+    public function __construct(
+        public Resource $resource,
+    ) {
     }
 
-    public static function make(string $label, ?string $id = null): self
+    abstract public function label(): string;
+
+    public function view(): View
     {
-        return new static($label, $id);
+        return view($this->template(), $this->viewData());
     }
 
-    public function fields(array $fields): self
+    public function slug(): string
     {
-        // TODO: format fields
-
-        return $this;
+        return Str::slug($this->label());
     }
 
-    public function template(string $template): self
-    {
-        $this->template = $template;
+    abstract public function template(): string;
 
-        return $this;
+    public function viewData(): array
+    {
+        return [];
     }
 }
