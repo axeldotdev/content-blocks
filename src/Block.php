@@ -3,8 +3,8 @@
 namespace Axeldotdev\ContentBlocks;
 
 use Illuminate\Contracts\View\View;
-use Laravel\Nova\Resource;
 use Illuminate\Support\Str;
+use Laravel\Nova\Resource;
 
 abstract class Block
 {
