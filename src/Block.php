@@ -8,17 +8,24 @@ use Illuminate\Support\Str;
 
 abstract class Block
 {
-    public function __construct(
-        public Resource $resource,
-    ) {
+    public string $label;
+    public string $slug;
+    public Resource $resource;
+    public string $template;
+    public View $view;
+    public array $viewData;
+
+    public function __construct(Resource $resource)
+    {
+        $this->label = $this->label();
+        $this->slug = $this->slug();
+        $this->resource = $resource;
+        $this->template = $this->template();
+        $this->view = $this->view();
+        $this->viewData = $this->viewData();
     }
 
     abstract public function label(): string;
-
-    public function view(): View
-    {
-        return view($this->template(), $this->viewData());
-    }
 
     public function slug(): string
     {
@@ -26,6 +33,11 @@ abstract class Block
     }
 
     abstract public function template(): string;
+
+    public function view(): View
+    {
+        return view($this->template(), $this->viewData());
+    }
 
     public function viewData(): array
     {
