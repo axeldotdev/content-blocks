@@ -65,14 +65,11 @@ class ContentBlocks extends Field
     protected function formatBlocks(string $json): string
     {
         $blocks = json_decode($json);
-
         $content = '';
 
-        $blocks->each(function (Block $block) {
-            //adoiuhbfc
+        $blocks->each(function (Block $block) use ($content) {
+            $content .= $block->view;
         });
-
-        $content .= 'yolo'; // TODO: format blocks
 
         return $content;
     }
